@@ -1,0 +1,9 @@
+.git
+.travis.yml
+
+.dockerignore
+Dockerfile
+
+DB_ER.dia
+README.md
+spec.txt
