@@ -12,7 +12,6 @@ function executeSQL() {
 }
 
 executeSQL scripts/db_table_drop_constraints.sql
-executeSQL scripts/db_table_drop_constraints.sql
 executeSQL scripts/db_table_drop.sql
 executeSQL scripts/db_table_creation.sql
 executeSQL scripts/db_table_add_constraints.sql
