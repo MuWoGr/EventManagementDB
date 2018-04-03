@@ -1,0 +1,50 @@
+overview of all events
+	Date
+	Name
+	Place
+	how many people are needed - #people accepted - #people maybe
+
+event
+	where, when
+	requirements: who is needed, cost, name, who is the organizer
+	how much is being paid €
+		0-500: 0 star
+		500-950: 1 star
+		950-1500 2 star
+		1500-3000 3 star
+		> 3000 -> bomb
+	Who - Billing Address
+	Name (Event)
+
+	Sport types
+	Live yes/no
+	video accessible at f24 website, if so, how much to pay to view videos of event
+	List of external personal for an event (given by event organizer)
+	Text page with special features
+
+	event is over -> filter by active/over events
+	event has 4 sizes (small/medium/large/deluxe)
+		(display in #starts or other icons)
+
+	when event is over -> page to rate personel
+
+
+person
+	contact details (tel, email, address (city not null))
+	asked / not asked -> (yes, no / maybe / option)
+	function (director, camera, sound, graphics, commentator, interviewer, slowmo, editor, cable aid, technical 	management, assistant)
+	School grades 1 to 10
+
+
+event flow
+	time with description
+
+
+Export event info
+	All event info
+	organizer
+	People of organizer
+	People from us with function
+	Event flow
+
+
