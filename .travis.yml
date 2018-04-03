@@ -5,7 +5,7 @@ services:
 
 before_script:
   - docker build --tag muwogr/db .
-  - docker run -d -p 54321:5432 -e POSTGRES_PASSWORD=password muwogr/db
+  - docker run -d -p 54323:5432 -e POSTGRES_PASSWORD=password muwogr/db
 
 script:
   - ./waitForStartup.sh

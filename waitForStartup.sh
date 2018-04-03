@@ -1,7 +1,7 @@
 #!/bin/bash
+# Taken and modified from:
+# https://www.marksayson.com/blog/wait-until-docker-containers-initialized/
 set -e
-
-echo "Starting database container" 
 
 # Max query attempts before consider setup failed
 MAX_TRIES=3
@@ -10,8 +10,9 @@ MAX_TRIES=3
 # with the expected db and user succeeds
 function dbIsReady() {
   PGPASSWORD=password \
-  psql -h localhost:54321 -U postgres \
-       -d postgres -c "select 1" \
+  psql -h localhost -p 54323 \
+       -U postgres -d postgres \
+       -c "select 1" \
   > /dev/null 2>&1
 }
 
