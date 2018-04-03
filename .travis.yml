@@ -3,7 +3,7 @@ services:
   - docker
 
 script:
-  - docker build --tag MuWoGr/db .
+  - docker build --tag mugogr/db .
 
 after_script:
   - docker images
