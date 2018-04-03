@@ -10,7 +10,7 @@ MAX_TRIES=3
 # with the expected db and user succeeds
 function dbIsReady() {
   PGPASSWORD=password \
-  psql -h localhost:5432 -U postgres \
+  psql -h localhost:54321 -U postgres \
        -d postgres -c "select 1" \
   > /dev/null 2>&1
 }
