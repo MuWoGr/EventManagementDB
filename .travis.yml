@@ -1,9 +1,14 @@
 sudo: required
+
 services:
   - docker
 
+before_script:
+  - docker build --tag muwogr/db .
+  - docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=password muwogr/db
+
 script:
-  - docker build --tag mugogr/db .
+  - ./waitForStartup.sh
 
 after_script:
   - docker images
