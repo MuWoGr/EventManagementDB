@@ -1,6 +1,8 @@
+drop trigger if exists event_function_check_person_disponibility_trigger on event_function;
+drop function if exists event_function_check_person_disponibility;
+
 alter table event_function
   alter column event_id drop not null,
-  alter column person_id drop not null,
   alter column skill_id drop not null,
   drop constraint event_function_event_fk cascade,
   drop constraint event_function_person_fk cascade,
@@ -10,6 +12,7 @@ alter table event_disponibility
   alter column event_id drop not null,
   alter column person_id drop not null,
   alter column disponibility_id drop not null,
+  drop constraint event_disponibility_unique_event_person_pair cascade,
   drop constraint event_disponibility_event_fk cascade,
   drop constraint event_disponibility_person_fk cascade,
   drop constraint event_disponibility_disponibility_fk cascade;
@@ -25,6 +28,9 @@ alter table event_sport_type
   alter column sport_type_id drop not null,
   drop constraint event_sport_type_event_fk cascade,
   drop constraint event_sport_type_sport_type_fk cascade;
+
+drop trigger if exists event_procedure_deletion_trigger on event_procedure;
+drop function if exists delete_related_event_procedures;
 
 alter table event_procedure
   alter column event_id drop not null,

@@ -87,7 +87,7 @@ create table event_disponibility (
 
 create table event_function (
   event_id integer, --NOT NULL FOREIGN KEY REFERENCES event(event_id)
-  person_id integer, --NOT NULL FOREIGN KEY REFERENCES person(person_id)
+  person_id integer, --FOREIGN KEY REFERENCES person(person_id)
   skill_id integer, --NOT NULL FOREIGN KEY REFERENCES skill(skill_id)
   event_function_description text,
   person_performance_grade numeric(1),
