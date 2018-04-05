@@ -1,3 +1,7 @@
+drop trigger if exists event_disponibility_remove_functions_when_unavailable on event_disponibility;
+drop function if exists event_disponibility_remove_assignment_from_event_functions;
+
+
 drop trigger if exists event_function_check_person_disponibility_trigger on event_function;
 drop function if exists event_function_check_person_disponibility;
 

@@ -186,8 +186,8 @@ BEGIN
       (SELECT 1 FROM event_disponibility ed
       WHERE ed.event_id = NEW.event_id 
         AND ed.person_id = NEW.person_id
-        AND ed.disponibility_id = 0 --available
-        OR ed.disponibility_id = 2) --maybe
+        AND (ed.disponibility_id = 0 --available
+        OR ed.disponibility_id = 2)) --maybe
     THEN
       RETURN NEW;
     ELSE
@@ -207,5 +207,31 @@ CREATE TRIGGER event_function_check_person_disponibility_trigger
   EXECUTE PROCEDURE event_function_check_person_disponibility();
 ----------------------------------------------------------------------------
 
+
+----------------------------------------------------------------------------
+--Handle logic of changing the status in event_disponibility of a person
+--  to a unavailable status
+
+CREATE OR REPLACE FUNCTION event_disponibility_remove_assignment_from_event_functions() 
+RETURNS trigger AS
+$$
+BEGIN
+  IF (NEW.disponibility_id = 1) --if person is not available
+  THEN
+    DELETE FROM event_function ef
+    WHERE ef.event_id = NEW.event_id
+      AND ef.person_id = NEW.event_id;
+  END IF;
+  RETURN NEW;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--Trigger to check for updates or deletes in event_disponibilities
+CREATE TRIGGER event_disponibility_remove_functions_when_unavailable
+  BEFORE INSERT OR UPDATE ON event_disponibility
+  FOR EACH ROW
+  EXECUTE PROCEDURE event_disponibility_remove_assignment_from_event_functions();
+----------------------------------------------------------------------------
 
 commit;
