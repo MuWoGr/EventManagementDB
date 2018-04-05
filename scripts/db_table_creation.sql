@@ -31,19 +31,14 @@ create table skill (
   skill_name text --NOT NULL
 );
 
-create table location (
-  location_id serial, --PRIMARY KEY
-  location_address text, --NOT NULL
-  location_geo geometry(Point, 4326) --NOT NULL
-);
-
 create table person (
   person_id serial,--PRIMARY KEY
   person_name text, --NOT NULL
   person_telephone text,
   person_email text,
   person_is_worker boolean, --NOT NULL
-  person_location_id integer --FOREIGN KEY REFERENCES location(location_id)
+  person_location_address text,
+  person_location_geo geometry(Point, 4326)
 );
 
 create table person_skills (
@@ -56,7 +51,8 @@ create table event (
   event_name text, --NOT NULL
   event_date_start timestamp,
   event_date_end timestamp,
-  event_location_id integer,
+  event_location_address text,
+  event_location_geo geometry(Point, 4326),
   event_charge numeric(14,2) DEFAULT 0, --NOT NULL
   event_ppv_charge numeric(14,2) DEFAULT 0, --NOT NULL
   event_live boolean DEFAULT FALSE, --NOT NULL

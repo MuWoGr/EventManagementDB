@@ -17,22 +17,16 @@ alter table skill
   add constraint skill_id_pk primary key(skill_id),
   alter column skill_name set not null;
 
-alter table location
-  add constraint location_id_pk primary key(location_id),
-  alter column location_address set not null,
-  alter column location_geo set not null;
-
---spation index on the location
-create index location_geom_index
-  on location using gist(location_geo);
 
 alter table person
   add constraint person_id_pk primary key(person_id),
   alter column person_name set not null,
-  alter column person_is_worker set not null,
-  add constraint person_location_fk
-    foreign key (person_location_id)
-    references location(location_id);
+  alter column person_is_worker set not null;
+
+--spation index on the location
+create index person_geom_index
+  on person using gist(person_location_geo);
+
 
 alter table person_skills
   alter column person_id set not null,
@@ -55,6 +49,11 @@ alter table event
     foreign key (event_organizer)
     references person(person_id),
   alter column event_is_active set not null;
+
+--spation index on the location
+create index event_geom_index
+  on event using gist(event_location_geo);
+
 
 alter table event_procedure
   alter column event_id set not null,

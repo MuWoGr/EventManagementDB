@@ -32,6 +32,8 @@ alter table event_procedure
   drop constraint event_procedure_event_fk cascade,
   drop constraint event_procedure_procedure_fk cascade;
 
+drop index event_geom_index;
+
 alter table event
   drop constraint event_id_pk cascade,
   alter column event_name drop not null,
@@ -48,18 +50,13 @@ alter table person_skills
   drop constraint person_skills_person_fk cascade,
   drop constraint person_skills_skill_fk cascade;
 
+drop index person_geom_index;
+
 alter table person
   drop constraint person_id_pk cascade,
   alter column person_name drop not null,
-  alter column person_is_worker drop not null,
-  drop constraint person_location_fk cascade;
+  alter column person_is_worker drop not null;
 
-drop index location_geom_index;
-
-alter table location
-  drop constraint location_id_pk cascade,
-  alter column location_address drop not null,
-  alter column location_geo drop not null;
 
 alter table skill
   drop constraint skill_id_pk cascade,
