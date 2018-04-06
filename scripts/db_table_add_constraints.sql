@@ -211,16 +211,18 @@ CREATE TRIGGER event_function_check_person_disponibility_trigger
 ----------------------------------------------------------------------------
 --Handle logic of changing the status in event_disponibility of a person
 --  to a unavailable status
-
+--Removing assigned person of a event_function when their disponibility
+--  for an event changes
 CREATE OR REPLACE FUNCTION event_disponibility_remove_assignment_from_event_functions() 
 RETURNS trigger AS
 $$
 BEGIN
   IF (NEW.disponibility_id = 1) --if person is not available
   THEN
-    DELETE FROM event_function ef
-    WHERE ef.event_id = NEW.event_id
-      AND ef.person_id = NEW.event_id;
+    UPDATE event_function
+      SET person_id = NULL
+    WHERE event_id = NEW.event_id
+      AND person_id = NEW.event_id;
   END IF;
   RETURN NEW;
 END;
@@ -229,7 +231,7 @@ LANGUAGE 'plpgsql';
 
 --Trigger to check for updates or deletes in event_disponibilities
 CREATE TRIGGER event_disponibility_remove_functions_when_unavailable
-  BEFORE INSERT OR UPDATE ON event_disponibility
+  BEFORE UPDATE ON event_disponibility
   FOR EACH ROW
   EXECUTE PROCEDURE event_disponibility_remove_assignment_from_event_functions();
 ----------------------------------------------------------------------------
