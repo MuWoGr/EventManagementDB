@@ -20,12 +20,6 @@ create table sport_type (
   sport_type_name text --NOT NULL
 );
 
-create table procedure (
-  procedure_id SERIAL, --PRIMARY KEY
-  procedure_timestamp timestamp, --NOT NULL
-  procedure_info text --NOT NULL
-);
-
 create table skill (
   skill_id SERIAL, --PRIMARY KEY
   skill_name text --NOT NULL
@@ -65,8 +59,10 @@ create table event (
 );
 
 create table event_procedure (
+  procedure_id SERIAL, --PRIMARY KEY
   event_id integer, --NOT NULL FOREIGN KEY REFERENCES event(event_id)
-  procedure_id integer --NOT NULL FOREIGN KEY REFERENCES procedure(procedure_id)
+  procedure_timestamp timestamp, --NOT NULL
+  procedure_info text --NOT NULL
 );
 
 create table event_sport_type (

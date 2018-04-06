@@ -1,6 +1,5 @@
 drop table users cascade;
 drop table sport_type cascade;
-drop table procedure cascade;
 drop table skill cascade;
 drop table person cascade;
 drop table person_skills cascade;

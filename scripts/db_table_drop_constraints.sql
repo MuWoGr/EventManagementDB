@@ -29,13 +29,12 @@ alter table event_sport_type
   drop constraint event_sport_type_sport_type_fk cascade,
   drop constraint event_sport_type_pk cascade;
 
-drop trigger if exists event_procedure_deletion_trigger on event_procedure;
-drop function if exists delete_related_event_procedures;
-
 alter table event_procedure
-  drop constraint event_procedure_event_fk cascade,
-  drop constraint event_procedure_procedure_fk cascade,
-  drop constraint event_procedure_pk;
+  drop constraint event_procedure_pk,
+  alter column event_id drop not null,
+  alter column procedure_timestamp drop not null,
+  alter column procedure_info drop not null,
+  drop constraint event_procedure_event_fk cascade;
 
 drop index event_geom_index;
 
@@ -65,11 +64,6 @@ alter table person
 alter table skill
   drop constraint skill_id_pk cascade,
   alter column skill_name drop not null;
-
-alter table procedure
-  drop constraint procedure_id_pk cascade,
-  alter column procedure_timestamp drop not null,
-  alter column procedure_info drop not null;
 
 alter table sport_type
   drop constraint sport_type_id_pk cascade,

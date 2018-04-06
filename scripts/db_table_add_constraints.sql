@@ -8,11 +8,6 @@ alter table sport_type
   add constraint sport_type_id_pk primary key(sport_type_id),
   alter column sport_type_name set not null;
 
-alter table procedure
-  add constraint procedure_id_pk primary key(procedure_id),
-  alter column procedure_timestamp set not null,
-  alter column procedure_info set not null;
-
 alter table skill
   add constraint skill_id_pk primary key(skill_id),
   alter column skill_name set not null;
@@ -62,41 +57,15 @@ create index event_geom_index
 
 
 alter table event_procedure
+  add constraint event_procedure_pk primary key(procedure_id),
+  alter column event_id set not null,
+  alter column procedure_timestamp set not null,
+  alter column procedure_info set not null,
   add constraint event_procedure_event_fk
     foreign key (event_id)
     references event(event_id)
     ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  add constraint event_procedure_procedure_fk
-    foreign key (procedure_id)
-    references procedure(procedure_id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE, --When procedure is deleted, delete event_procedure
-  add constraint event_procedure_pk
-    primary key(event_id, procedure_id);
-
-
-----------------------------------------------------------------------------
---Handle logic of deleting an event and automatically deleting the
---  related procedures with it 
---Function to delete procedure rows that occur in event_procedure
-CREATE OR REPLACE FUNCTION delete_related_event_procedures() 
-RETURNS trigger AS
-$$
-BEGIN
-  DELETE FROM procedure WHERE procedure_id = OLD.procedure_id;
-  RETURN NULL;
-END;
-$$
-LANGUAGE 'plpgsql';
-
---Trigger that deleted all related procedures when deleting a event_procedure
-CREATE TRIGGER event_procedure_deletion_trigger
-  AFTER DELETE ON event_procedure
-  FOR EACH ROW
-  EXECUTE PROCEDURE delete_related_event_procedures();
-----------------------------------------------------------------------------
-
+    ON DELETE CASCADE;
 
 alter table event_sport_type
   add constraint event_sport_type_event_fk
