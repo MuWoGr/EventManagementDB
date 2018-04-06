@@ -44,6 +44,7 @@ create table person (
 create table person_skills (
   person_id integer, --NOT NULL FOREIGN KEY REFERENCES person(person_id)
   skill_id integer --NOT NULL FOREIGN KEY REFERENCES skill(skill_id)
+  --PK (person_id,skill_id)
 );
 
 create table event (
@@ -86,6 +87,7 @@ create table event_disponibility (
 );
 
 create table event_function (
+  event_function_id serial, --PRIMARY KEY
   event_id integer, --NOT NULL FOREIGN KEY REFERENCES event(event_id)
   person_id integer, --FOREIGN KEY REFERENCES person(person_id)
   skill_id integer, --NOT NULL FOREIGN KEY REFERENCES skill(skill_id)
